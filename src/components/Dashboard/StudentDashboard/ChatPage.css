@@ -1,0 +1,233 @@
+/* Add these styles to your existing Dashboard.css file */
+
+.chat-page {
+    background-color: #f8f9fa; /* Consistent background */
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 56px - 3rem); /* Adjust height to fill remaining space, considering navbar and padding */
+}
+
+.chat-container {
+    display: flex;
+    flex-grow: 1;
+    background-color: #fff; /* White background for the chat area */
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+    overflow: hidden; /* Hide overflow for chat messages */
+}
+
+/* Left Column: Chat List */
+.chat-list-column {
+    flex: 0 0 300px; /* Fixed width for chat list */
+    border-right: 1px solid #eee;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-list-header h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.chat-list-items {
+    flex-grow: 1;
+    overflow-y: auto; /* Scroll for chat list */
+}
+
+.chat-list-item {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent; /* Default transparent border */
+}
+
+.chat-list-item:hover {
+    background-color: #e9ecef;
+}
+
+.chat-list-item.active {
+    background-color: #e0f7fa; /* Light teal active background */
+    border-color: #20c997; /* Teal border for active */
+    font-weight: bold;
+}
+
+.chat-list-item h6 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: #343a40;
+}
+
+.chat-list-item small {
+    font-size: 0.8rem;
+}
+
+.last-message-text {
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Right Column: Chat Messages */
+.chat-messages-column {
+    flex-grow: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages-header h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.chat-messages-body {
+    flex-grow: 1;
+    overflow-y: auto; /* Scroll for messages */
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+.chat-message-bubble {
+    max-width: 70%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    font-size: 0.9rem;
+}
+
+.chat-message-bubble p {
+    margin-bottom: 0.25rem;
+}
+
+.chat-message-bubble .sender-name {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #495057;
+    margin-bottom: 0.2rem;
+    display: block;
+}
+
+.chat-message-bubble .message-time {
+    font-size: 0.7rem;
+    color: #9c9c9c;
+    text-align: right;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.chat-message-bubble.received {
+    background-color: #e9ecef; /* Light grey for received */
+    color: #212529;
+    align-self: flex-start;
+    border-bottom-left-radius: 0.25rem; /* Pointed corner */
+}
+
+.chat-message-bubble.sent {
+    background-color: #20c997; /* Teal for sent */
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 0.25rem; /* Pointed corner */
+}
+
+.chat-message-bubble.sent-file {
+    background-color: #20c997; /* Teal for sent file */
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.chat-message-bubble.sent-file svg {
+    font-size: 1rem;
+}
+
+
+.chat-input-area .form-control {
+    border-radius: 0.5rem;
+}
+
+.chat-input-area .btn-info {
+    background-color: #20c997;
+    border-color: #20c997;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.chat-input-area .btn-info:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Input group styles for search bar */
+.input-group .form-control {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+.input-group-append .input-group-text {
+    background-color: #e9ecef;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-left: none;
+    color: #6c757d;
+}
+
+/* Ensure general utility classes are available (from previous steps) */
+.d-flex { display: flex !important; }
+.flex-column { flex-direction: column !important; }
+.align-items-center { align-items: center !important; }
+.align-items-start { align-items: flex-start !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-start { justify-content: flex-start !important; }
+.text-muted { color: #6c757d !important; }
+.text-decoration-none { text-decoration: none !important; }
+.font-weight-bold { font-weight: bold !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.ml-2 { margin-left: 0.5rem !important; }
+.mr-1 { margin-right: 0.25rem !important; }
+.mr-2 { margin-right: 0.5rem !important; }
+.mr-3 { margin-right: 1rem !important; }
+.mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+.ml-auto { margin-left: auto !important; }
+.py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.p-3 { padding: 1rem !important; }
+.pb-2 { padding-bottom: 0.5rem !important; }
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+.row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.border-bottom { border-bottom: 1px solid #dee2e6 !important; }
+/* Reusing page-title, page-description, back-link from previous pages */
+.page-title {
+    font-size: 1.8rem;
+    color: #343a40;
+    font-weight: 600;
+}
+
+.page-description {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.back-link {
+    color: #6c757d;
+    font-size: 0.9rem;
+    padding: 5px 0;
+}
+
+.back-link:hover {
+    color: #495057;
+}

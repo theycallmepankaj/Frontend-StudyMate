@@ -1,0 +1,145 @@
+/* Add these styles to your existing Dashboard.css file */
+
+/* Page-specific Container adjustments */
+.dashboard-content-container {
+    background-color: #f8f9fa; /* Consistent with your dashboard background */
+}
+
+/* Back link styles */
+.back-link {
+    color: #6c757d; /* Muted text color */
+    font-size: 0.9rem;
+    padding: 5px 0;
+}
+
+.back-link:hover {
+    color: #495057;
+}
+
+/* Page titles and descriptions */
+.page-title {
+    font-size: 1.8rem;
+    color: #343a40;
+    font-weight: 600;
+}
+
+.page-description {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Study Notes Card Styles */
+.study-note-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.75rem; /* More rounded corners as per screenshot */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: #fff; /* White background for cards */
+    min-height: 200px; /* Ensure consistent height for cards if content varies */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.study-note-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.study-note-card .card-body {
+    padding: 1.5rem;
+}
+
+.study-note-card .card-title-lg {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.study-note-card .card-subtitle {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.study-note-card .description-text {
+    font-size: 0.85rem;
+    color: #495057;
+    margin-top: 0.75rem;
+    min-height: 40px; /* Adjust as needed to keep descriptions visually consistent */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+}
+
+.study-note-card .date-text {
+    font-size: 0.75rem;
+    color: #9c9c9c;
+    margin-top: 0.5rem;
+}
+
+/* Subject tags */
+.subject-tag {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: #fff; /* White text for tags */
+}
+
+/* Specific colors for subject tags */
+.mathematics { background-color: #007bff; } /* Blue */
+.physics { background-color: #28a745; }    /* Green */
+.chemistry { background-color: #fd7e14; }   /* Orange */
+.english { background-color: #6f42c1; }     /* Purple */
+/* Add more as needed */
+
+/* Buttons inside cards */
+.study-note-card .btn-outline-info {
+    color: #20c997;
+    border-color: #20c997;
+}
+.study-note-card .btn-outline-info:hover {
+    background-color: #20c997;
+    color: #fff;
+}
+.study-note-card .btn-info {
+    background-color: #20c997;
+    border-color: #20c997;
+    color: #fff;
+}
+.study-note-card .btn-info:hover {
+    background-color: #17a2b8; /* Darker teal on hover */
+    border-color: #17a2b8;
+}
+
+/* Flex utilities (if not relying entirely on Bootstrap) */
+.d-flex { display: flex !important; }
+.align-items-center { align-items: center !important; }
+.justify-content-start { justify-content: flex-start !important; }
+.justify-content-between { justify-content: space-between !important; }
+.text-muted { color: #6c757d !important; }
+.text-decoration-none { text-decoration: none !important; }
+.font-weight-bold { font-weight: bold !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mr-1 { margin-right: 0.25rem !important; }
+.mr-2 { margin-right: 0.5rem !important; }
+.mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+.ml-auto { margin-left: auto !important; }
+.py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+.col-md-6 { flex: 0 0 50%; max-width: 50%; }
+.row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}

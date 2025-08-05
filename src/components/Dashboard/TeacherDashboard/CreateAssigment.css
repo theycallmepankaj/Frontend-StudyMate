@@ -1,0 +1,210 @@
+
+.assignment-form-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+}
+
+.form-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.form-section-description {
+    font-size: 0.9rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.25rem;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+    border-color: #0ABAB5;
+    box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.25);
+}
+
+/* Attachment Upload Box */
+.attachment-upload-box {
+    border: 2px dashed #e9ecef;
+    border-radius: 0.75rem;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.attachment-upload-box:hover {
+    border-color: #0ABAB5;
+    background-color: #e0f7fa;
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    color: #0ABAB5;
+    opacity: 0.7;
+}
+
+.choose-files-btn {
+    color: #0ABAB5;
+    border-color: #0ABAB5;
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.choose-files-btn:hover {
+    background-color: #0ABAB5;
+    color: white;
+}
+
+/* Buttons */
+.btn-info {
+    background-color: #0ABAB5;
+    border-color: #0ABAB5;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.btn-info:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* General utility classes (reused) */
+.d-flex {
+    display: flex !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.justify-content-end {
+    justify-content: flex-end !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.mx-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+}
+
+.py-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+.p-4 {
+    padding: 1.5rem !important;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: #343a40;
+    font-weight: 600;
+}
+
+.page-description {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.back-link {
+    color: #6c757d;
+    font-size: 0.9rem;
+    padding: 5px 0;
+}
+
+.back-link:hover {
+    color: #495057;
+}

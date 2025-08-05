@@ -1,0 +1,50 @@
+.register-container {
+  height: 100vh;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+.register-card {
+  max-width: 900px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.register-image-section {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+  padding: 20px;
+}
+
+.register-image-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.brand-title {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  font-family: 'Cursive', sans-serif;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.register-form-section {
+  flex: 1;
+  padding: 30px;
+  min-width: 300px;
+}
+
+.form-title {
+  font-family: 'Poppins', sans-serif;
+  color: #3e3f5b;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
