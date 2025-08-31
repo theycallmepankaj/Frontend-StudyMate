@@ -1,4 +1,5 @@
 import React from 'react';
+import { BiLogoBitcoin } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 // import logoIcon from '../assets/logo-icon.png'; // Replace with your actual path
 
@@ -9,7 +10,7 @@ const Header = () => {
         {/* Logo */}
         <div className="d-flex align-items-center">
           {/* <img
-            src={logoIcon}
+            src={BiLogoBitcoin}
             alt="StudyMate Logo"
             style={{
               width: '40px',
@@ -27,7 +28,7 @@ const Header = () => {
         <nav>
           <ul className="nav">
             <li className="nav-item mx-2 mr-8">
-             <Link className="nav-link text-dark font-weight-medium" to="/features">Features</Link>
+             <Link className="nav-link text-dark font-weight-medium" to="/feature">Features</Link>
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link text-dark font-weight-medium" to="/about">About</Link>

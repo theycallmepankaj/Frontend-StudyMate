@@ -14,5 +14,11 @@ export default {
     GET_STU_DOUBTS: BASE_URL + "/teacher/doubts",
     CREATE_ASSIGNMENT: BASE_URL + "/teacher/assignments",
     LOGOUT:BASE_URL+"/user/logout",
-    SUBMIT_ASSIGNMENT:BASE_URL+"/student"
+    SUBMIT_ASSIGNMENT:BASE_URL+"/student",
+    UPLOAD_NOTES:BASE_URL+"/teacher/notes",
+    POST_ANNOUNCEMENT:BASE_URL+"/teacher/announcements",
+    GET_ANNOUNCEMENT:BASE_URL+"/student/announcements",
+    DOUBT_RESPONSE:BASE_URL+"/teacher/doubtResponse",
+    DELETE_DOUBT:BASE_URL+"/student",
+    DELETE_ANNOUNCEMENT:BASE_URL+"/teacher"
 }

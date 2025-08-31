@@ -7,7 +7,7 @@ import axios from 'axios';
 import { getCurrentUser } from '../../auth/Auth';
 
 const DoubtPage = () => {
-   let user = getCurrentUser();
+    let user = getCurrentUser();
     const [state, dispatch] = useReducer((state, action) => {
         switch (action.type) {
             case "set-doubts":
@@ -18,6 +18,7 @@ const DoubtPage = () => {
     }, {
         doubtList: []
     })
+
     useEffect(() => {
         loadDoubts();
     }, []);
@@ -34,63 +35,134 @@ const DoubtPage = () => {
         }
     }
 
-    return <>
-        <div className="container-fluid py-4 doubts-page-content">
-            <div className="d-flex align-items-center mb-4">
-                <a href="/" className="back-link d-flex align-items-center text-decoration-none">
-                    <FaArrowLeft className="mr-2" /> Back to Home
-                </a>
-                <span className="text-muted mx-2">|</span>
-                <span className="font-weight-bold" style={{ color: "#0ABAB5", fontSize: "30px" }}>Doubts</span>
-                <span className="text-muted ml-auto">StudyMate - Learning Management System</span>
-            </div>
-            <hr />
+    const handleDelete = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this doubt?")) return;
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "59%" }}>
-                <div>
-                    <h3 className="mb-3 mt-4">My Doubts</h3>
-                    <p className="text-muted mb-4">Ask questions and get help from teachers</p>
+        try {
+            await axios.delete(`${Endpoint.DELETE_DOUBT}/${id}`, { withCredentials: true });
+            // Refresh list after delete
+            loadDoubts();
+        } catch (err) {
+            console.error("Error deleting doubt:", err);
+        }
+    };
+
+    return (
+        <>
+            <div className="container-fluid py-4 doubts-page-content">
+                <div className="d-flex align-items-center mb-4">
+                    <a href="/" className="back-link d-flex align-items-center text-decoration-none">
+                        <FaArrowLeft className="mr-2" /> Back to Home
+                    </a>
+                    <span className="text-muted mx-2">|</span>
+                    <span className="font-weight-bold" style={{ color: "#0ABAB5", fontSize: "30px" }}>Doubts</span>
+                    <span className="text-muted ml-auto">StudyMate - Learning Management System</span>
                 </div>
-                <div style={{ marginTop: "2%" }}>
-                    <Link to={"/mainDashboard/askQuestion"} style={{ backgroundColor: "#0ABAB5", color: "white", borderRadius: "10px", border: "none", fontWeight: "bolder", padding: "5px", textDecoration: "none" }}> <FaPlus style={{ alignItems: "center", marginTop: "1px", marginBottom: "2px", marginRight: "5px" }} />Ask Question</Link>
-                </div>
-            </div>
+                <hr />
 
-
-            {state?.doubtList?.map((doubt, index) => (<div className="card doubt-card mb-3" key={index}>
-                <div className="card-body d-flex">
-                    <div className="doubt-avatar mr-3">
-                        <img
-                            src={BASE_URL + "/profile/" + user?.profile?.imageName}
-                            alt="Profile"
-                            className="rounded-circle"
-                            width={60}
-                            height={60}
-                        />
+                <div style={{ display: "flex", justifyContent: "between", gap: "59%" }}>
+                    <div>
+                        <h3 className="mb-3 mt-4">My Doubts</h3>
+                        <p className="text-muted mb-4">Ask questions and get help from teachers</p>
                     </div>
-                    <div className="flex-grow-1">
-                        <div className="d-flex justify-content-between align-items-start">
-                            <h5 className="card-title mb-1">{doubt?.question}</h5>
-                            <span className="badge badge-pending">Pending</span>
-                        </div>
-                        <p className="card-subtitle text-muted mb-2">{doubt?.subject} •  {doubt?.createdAt}</p>
-                        <p className="card-text">
-                            {doubt?.description}
-                        </p>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <small className="text-muted">0 responses</small>
-                            <span className="badge badge-info-outline">{doubt?.subject}</span>
-                        </div>
+                    <div style={{ marginTop: "2%" }}>
+                        <Link
+                            to={"/mainDashboard/askQuestion"}
+                            style={{
+                                backgroundColor: "#0ABAB5",
+                                color: "white",
+                                borderRadius: "10px",
+                                border: "none",
+                                fontWeight: "bolder",
+                                padding: "5px",
+                                textDecoration: "none"
+                            }}
+                        >
+                            <FaPlus
+                                style={{
+                                    alignItems: "center",
+                                    marginTop: "1px",
+                                    marginBottom: "2px",
+                                    marginRight: "5px"
+                                }}
+                            />Ask Question
+                        </Link>
                     </div>
                 </div>
-            </div>))}
 
+                {/* Doubts List */}
+                {state?.doubtList?.map((doubt, index) => (
+                    <div className="card doubt-card mb-3" key={index}>
+                        <div className="card-body d-flex">
+                            <div className="doubt-avatar mr-3">
+                                <img
+                                    src={BASE_URL + "/profile/" + user?.profile?.imageName}
+                                    alt="Profile"
+                                    className="rounded-circle"
+                                    width={60}
+                                    height={60}
+                                />
+                            </div>
+                            <div className="flex-grow-1">
+                                <div className="d-flex justify-content-between align-items-start">
+                                    <h5 className="card-title mb-1">{doubt?.question}</h5>
 
+                                    {/* Status Badge */}
+                                    <div>
+                                        <small className="text-warning mr-2">
+                                            <strong> {doubt?.answers?.length} responses</strong>
+                                        </small>
 
+                                        {doubt?.answers?.length > 0 ? (
+                                            <span className="badge badge-success">Answered</span>
+                                        ) : (
+                                            <span className="badge badge-pending">Pending</span>
+                                        )}
+                                    </div>
+                                </div>
 
+                                <p className="card-subtitle text-muted mt-1">
+                                    <strong> {doubt?.subject} </strong>• {new Date(doubt?.createdAt).toLocaleString()}
+                                </p>
 
-        </div>
-    </>
+                                <p className="card-text mt-2">
+                                    {doubt?.description}
+                                </p>
+
+                                <div className="d-flex justify-content-between align-items-center">
+
+                                    {/* <span className="badge badge-info-outline">{doubt?.subject}</span> */}
+                                </div>
+
+                                {/* Show Answers if available */}
+                                {doubt?.answers?.length > 0 && (
+                                    <div className="mt-3">
+                                        <h6>Answers:</h6>
+                                        <ul>
+                                            {doubt.answers.map((answer, i) => (
+                                                <li key={i}>
+                                                    <strong>{answer?.answerBy?.name || "Unknown"} :</strong> {answer.answerText}{"  "}
+                                                    <small className="text-muted">
+                                                        <strong> ({new Date(answer?.answeredAt).toLocaleString()})</strong>
+                                                    </small>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                <div class="d-flex justify-content-end">
+                                    <button
+                                        className="btn btn-sm btn-outline-danger mr-2"
+                                        onClick={() => handleDelete(doubt?._id)}>Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </>
+    );
 };
 
 export default DoubtPage;

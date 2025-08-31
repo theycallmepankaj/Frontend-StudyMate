@@ -1,5 +1,29 @@
-/* --- Post Announcement Page Styles --- */
-.announcement-card {
+/* --- Doubt Response Page Styles --- */
+.doubt-details-card {
+    background-color: #f1f5f9;
+    /* Light grey background for the original question */
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+}
+
+.doubt-details-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.doubt-details-meta {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.doubt-details-question {
+    font-size: 1rem;
+    color: #475569;
+    white-space: pre-wrap;
+}
+
+.response-form-card {
     background-color: #fff;
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
@@ -7,13 +31,13 @@
     margin: 0 auto;
 }
 
-.announcement-title {
+.response-form-title {
     font-size: 2rem;
     font-weight: 700;
     color: #343a40;
 }
 
-.announcement-subtitle {
+.response-form-subtitle {
     font-size: 1rem;
     color: #6c757d;
 }
@@ -36,7 +60,7 @@
     box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.25);
 }
 
-.post-submit-btn {
+.response-submit-btn {
     width: 100%;
     padding: 0.75rem 1rem;
     background-color: #0ABAB5;
@@ -46,7 +70,13 @@
     transition: background-color 0.3s ease;
 }
 
-.post-submit-btn:hover {
-    background-color: #0ABAB5;
-    border-color: #0ABAB5;
+.response-submit-btn:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Common utility for separators if not already defined */
+.dot-separator {
+    margin: 0 0.5rem;
+    color: #adb5bd;
 }

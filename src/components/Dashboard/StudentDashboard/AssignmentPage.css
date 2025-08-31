@@ -1,12 +1,9 @@
-/* Add these styles to your existing Dashboard.css file */
-
-/* Assignment Card Styles */
 .assignment-card {
     border: 1px solid #e0e0e0;
-    border-radius: 0.75rem; /* More rounded corners as per screenshot */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    background-color: #fff; /* White background for cards */
+    background-color: #fff;
 }
 
 .assignment-card:hover {
@@ -55,59 +52,124 @@
 }
 
 .badge-not-started {
-    background-color: #f8d7da; /* Light red */
-    color: #721c24; /* Dark red text */
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
 .badge-in-progress {
-    background-color: #cce5ff; /* Light blue */
-    color: #004085; /* Dark blue text */
+    background-color: #cce5ff;
+    color: #004085;
 }
 
 .badge-submitted {
-    background-color: #d4edda; /* Light green */
-    color: #155724; /* Dark green text */
+    background-color: #d4edda;
+    color: #155724;
 }
 
-/* Buttons inside cards (reusing existing info styles) */
 .assignment-card .btn-outline-info {
-    color: #20c997;
-    border-color: #20c997;
+    color: #0ABAB5;
+    border-color: #0ABAB5;
 }
+
 .assignment-card .btn-outline-info:hover {
-    background-color: #20c997;
+    background-color: #0ABAB5;
     color: #fff;
 }
+
 .assignment-card .btn-info {
-    background-color: #20c997;
-    border-color: #20c997;
+    background-color: #0ABAB5;
+    border-color: #0ABAB5;
     color: #fff;
 }
+
 .assignment-card .btn-info:hover {
     background-color: #17a2b8;
     border-color: #17a2b8;
 }
 
-/* Ensure general utility classes are available (from previous steps) */
-.d-flex { display: flex !important; }
-.align-items-center { align-items: center !important; }
-.justify-content-between { justify-content: space-between !important; }
-.justify-content-start { justify-content: flex-start !important; }
-.text-muted { color: #6c757d !important; }
-.text-decoration-none { text-decoration: none !important; }
-.font-weight-bold { font-weight: bold !important; }
-.mb-0 { margin-bottom: 0 !important; }
-.mb-1 { margin-bottom: 0.25rem !important; }
-.mb-2 { margin-bottom: 0.5rem !important; }
-.mb-4 { margin-bottom: 1.5rem !important; }
-.mt-3 { margin-top: 1rem !important; }
-.mr-1 { margin-right: 0.25rem !important; }
-.mr-2 { margin-right: 0.5rem !important; }
-.mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
-.ml-auto { margin-left: auto !important; }
-.py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
-.col-12 { flex: 0 0 100%; max-width: 100%; }
-.row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+
+.d-flex {
+    display: flex !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.justify-content-start {
+    justify-content: flex-start !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.font-weight-bold {
+    font-weight: bold !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.mx-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+}
+
+.ml-auto {
+    margin-left: auto !important;
+}
+
+.py-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+.col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
 .container-fluid {
     width: 100%;
     padding-right: 15px;
@@ -115,6 +177,7 @@
     margin-right: auto;
     margin-left: auto;
 }
+
 /* Reusing page-title, page-description, back-link from StudyNotesPage */
 .page-title {
     font-size: 1.8rem;

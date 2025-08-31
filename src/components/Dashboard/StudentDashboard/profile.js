@@ -133,7 +133,7 @@ function StudentProfilePage() {
                         </div>
                         <div>
                             <h4 className="mb-1 profile-name">{userProfile.name}</h4>
-                            <p className="text-muted mb-1 profile-details">Computer Science • Sophomore</p>
+                            {/* <p className="text-muted mb-1 profile-details">Computer Science • Sophomore</p> */}
                             <span className="badge badge-student-id d-flex align-items-center">
                                 <FaIdCard className="mr-1" /> Student ID: {userProfile.studentId}
                             </span>

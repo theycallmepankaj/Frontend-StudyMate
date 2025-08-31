@@ -1,0 +1,142 @@
+/* --- Material Page Styles --- */
+
+/* Header Section */
+.material-header-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #343a40;
+}
+.material-header-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+}
+.material-upload-btn {
+    background-color: #0ABAB5;
+    border-color: #0ABAB5;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    transition: background-color 0.3s ease;
+}
+.material-upload-btn:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Filters and Search */
+.material-filters-container {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+.material-search-box {
+    width: 300px;
+}
+.material-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: #adb5bd;
+}
+.material-search-input {
+    padding-left: 2.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    height: 45px;
+}
+.material-search-input:focus {
+    border-color: #0ABAB5;
+    box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.25);
+}
+.material-filter-select {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    height: 45px;
+    background-color: #fff;
+    padding-right: 2.5rem;
+}
+
+/* Tabs */
+.material-tabs {
+    display: flex;
+    gap: 1rem;
+}
+.material-tab-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+.material-tab-btn.active {
+    color: #0ABAB5;
+    border-bottom-color: #0ABAB5;
+    font-weight: 600;
+}
+.material-tab-btn:hover {
+    color: #0ABAB5;
+}
+
+/* Material Cards */
+.material-card {
+    border: 1px solid #e9ecef;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+.material-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #343a40;
+}
+.material-card-subject {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.material-card-author {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+.material-card-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+.star-icon {
+    font-size: 1rem;
+}
+.pdf-icon {
+    font-size: 1.5rem;
+}
+.material-stats {
+    font-size: 0.8rem;
+}
+.dot-separator {
+    margin: 0 0.5rem;
+    color: #adb5bd;
+}
+
+.material-card-buttons .btn {
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+.material-card-buttons .btn-success {
+    background-color: #0ABAB5;
+    border-color: #0ABAB5;
+    color: #fff;
+}
+.material-card-buttons .btn-success:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}

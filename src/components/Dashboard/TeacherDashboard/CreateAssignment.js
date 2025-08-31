@@ -85,12 +85,12 @@ function CreateAssignmentPage() {
                         </div>
                         <div className="col-md-6 mb-3">
                             <label htmlFor="subject" className="form-label">Subject</label>
-                            <select id="subject" name="subject" className="form-control" onChange={handleChange} value={formData.subject} required>
+                            <select id="subject" name="subject" className="form-control p-2" onChange={handleChange} value={formData.subject} required>
                                 <option value="">Select subject</option>
-                                <option value="Mathematics">Java</option>
-                                <option value="Physics">JavaScript</option>
-                                <option value="Chemistry">SoftSkill</option>
-                                <option value="English">Aptitude</option>
+                                <option value="Java">Java</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="SoftSkill">SoftSkill</option>
+                                <option value="Aptitude">Aptitude</option>
                             </select>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGraduationCap } from 'react-icons/fa';
 import { MdPersonAddAlt1 } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const GetStart = () => {
   return (
@@ -22,21 +23,21 @@ const GetStart = () => {
           education with <strong>StudyMate</strong>.
         </p>
         <div className="d-flex justify-content-center gap-3 flex-wrap">
-          <a
-            href="#get-started"
+          <Link
+            to={"signup"}
             className="btn btn-light d-flex align-items-center px-4 py-2 rounded-pill shadow"
             style={{ fontWeight: 500 }}
           >
             <FaGraduationCap className="mr-2" /> Get Started Free
-          </a>
+          </Link>
 
-           <a
-            href="#get-started"
+           <Link
+            to={"signup"}
             className=" ml-3 btn btn-light d-flex align-items-center px-4 py-2 rounded-pill shadow"
             style={{ fontWeight: 500 }}
           >
             <MdPersonAddAlt1 className="mr-2" /> Join as Educator
-          </a>
+          </Link>
           
         </div>
       </div>

@@ -44,7 +44,7 @@ function TeacherDashboard() {
                             "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
                     } to="/MainDashboard/dashboard"><FaThLarge className="mr-2" /> Dashboard</Link> */}
                     
-                    <NavLink to="/teacherDashboard/teaDashboard"  className={({ isActive }) => "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
+                    <NavLink to="/teacherDashboard/teaDashboard/getAnnouncement"  className={({ isActive }) => "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
                     }
                     >
                         <FaQuestionCircle className="mr-2" /> Dashboard
@@ -81,13 +81,13 @@ function TeacherDashboard() {
                     </NavLink>
 
                   
-                    {/* <NavLink
-                        to="/teacherDashboard/filesPage"
+                    <NavLink
+                        to="/teacherDashboard/courseMaterial"
                         className={({ isActive }) =>
                             "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
                     }
                     >
-                        <FaFileAlt className="mr-2" /> Files
+                        <FaFileAlt className="mr-2" /> Course materials
                     </NavLink>
 
                     
@@ -98,7 +98,7 @@ function TeacherDashboard() {
                     }
                     >
                         <FaComments className="mr-2" /> Chat
-                    </NavLink> */}
+                    </NavLink>
                 </div>
             </div>
            

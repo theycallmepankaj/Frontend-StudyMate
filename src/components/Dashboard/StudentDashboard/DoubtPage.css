@@ -1,6 +1,6 @@
 .doubts-page-content {
-    background-color: #ffffff; /* Ensure white background for the content area */
-    min-height: calc(100vh - 56px); /* Adjust height, 56px is typical navbar height */
+    background-color: #ffffff; 
+    min-height: calc(100vh - 56px); 
 }
 
 .doubt-card {
@@ -17,7 +17,7 @@
 .doubt-avatar {
     width: 50px;
     height: 50px;
-    background-color: #6c757d; /* A neutral color */
+    background-color: #6c757d; 
     color: white;
     border-radius: 50%;
     display: flex;
@@ -25,19 +25,19 @@
     align-items: center;
     font-weight: bold;
     font-size: 1.2rem;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0; 
 }
 
 .badge-pending {
-    background-color: #ff0707; /* Yellow */
-    color: #f9fbfd; /* Dark text for contrast */
+    background-color: #ff0707; 
+    color: #f9fbfd; 
     padding: 0.4em 0.7em;
     border-radius: 0.25rem;
     font-weight: normal;
 }
 
 .badge-resolved {
-    background-color: #44b0c4; /* Green */
+    background-color: #44b0c4;
     color: white;
     padding: 0.4em 0.7em;
     border-radius: 0.25rem;
@@ -45,7 +45,7 @@
 }
 
 .badge-info-outline {
-    border: 1px solid #17a2b8; /* Info blue */
+    border: 1px solid #17a2b8; 
     color: #17a2b8;
     background-color: transparent;
     padding: 0.4em 0.7em;

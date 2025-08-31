@@ -1,5 +1,5 @@
-/* --- Post Announcement Page Styles --- */
-.announcement-card {
+/* --- Upload Note Page Styles --- */
+.upload-note-card {
     background-color: #fff;
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
@@ -7,13 +7,13 @@
     margin: 0 auto;
 }
 
-.announcement-title {
+.upload-note-title {
     font-size: 2rem;
     font-weight: 700;
     color: #343a40;
 }
 
-.announcement-subtitle {
+.upload-note-subtitle {
     font-size: 1rem;
     color: #6c757d;
 }
@@ -36,7 +36,33 @@
     box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.25);
 }
 
-.post-submit-btn {
+.custom-file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-name-display {
+    display: block;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.upload-submit-btn {
     width: 100%;
     padding: 0.75rem 1rem;
     background-color: #0ABAB5;
@@ -46,7 +72,7 @@
     transition: background-color 0.3s ease;
 }
 
-.post-submit-btn:hover {
-    background-color: #0ABAB5;
-    border-color: #0ABAB5;
+.upload-submit-btn:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
 }

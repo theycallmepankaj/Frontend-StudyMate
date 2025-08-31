@@ -1,10 +1,7 @@
-/* Add these styles to your existing Dashboard.css file */
 
-/* Teacher Dashboard specific styles */
-/* Reusing welcome-card from student dashboard, but ensuring it looks right */
 .welcome-card {
     background-color: #0ABAB5;
-    /* Teal background for welcome banner */
+
     color: white;
     border-radius: 0.75rem;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
@@ -31,7 +28,7 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Teacher Nav Tabs (reusing student dashboard nav tabs, but can be customized) */
+
 .dashboard-nav-tabs .nav-link {
     color: #495057;
     font-weight: 500;
@@ -48,12 +45,12 @@
 
 .dashboard-nav-tabs .nav-link.active {
     background-color: #0ABAB5 !important;
-    /* Teal active background */
+    
     color: white !important;
     font-weight: bold;
 }
 
-/* Student Doubt Card Styles (similar to previous doubt cards, but specific to teacher view) */
+
 .student-doubt-card {
     border: 1px solid #e0e0e0;
     border-radius: 0.75rem;
@@ -73,19 +70,18 @@
 
 .student-doubt-card .doubt-initials-avatar {
     width: 50px;
-    /* Slightly larger avatar */
+   
     height: 50px;
     border-radius: 50%;
     background-color: #e0f7fa;
-    /* Light teal background */
     color: #20c997;
-    /* Teal text */
+    
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     font-size: 1.2rem;
-    /* Larger font */
+   
     flex-shrink: 0;
 }
 
@@ -112,7 +108,7 @@
     margin: 0 0.25rem;
 }
 
-/* Buttons inside cards (reusing existing info styles) */
+
 .student-doubt-card .btn-outline-info {
     color: #0ABAB5;
     border-color: #0ABAB5;
@@ -134,7 +130,7 @@
     border-color: #0ABAB5;
 }
 
-/* Ensure general utility classes are available (from previous steps) */
+
 .d-flex {
     display: flex !important;
 }
@@ -260,7 +256,7 @@
     border-radius: 0.2rem;
 }
 
-/* Reusing page-title, page-description, back-link from previous pages */
+
 .page-title {
     font-size: 1.8rem;
     color: #343a40;

@@ -7,9 +7,16 @@ import {
 import './SolveDoubt.css';
 import axios from 'axios';
 import Endpoint, { BASE_URL } from '../../apis/Endpoint';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function SolveDoubtsPage() {
     // Data for the student doubts cards
+    const navigate = useNavigate();
+
+    const handleNavigate = (id) => {
+        navigate(`/teacherDashboard/doubtResponse/${id}`)
+    }
+
     const [state, dispatch] = useReducer((state, action) => {
         if (action.type == "set-doubts") {
             state.doubtList = action.payload;
@@ -49,9 +56,9 @@ function SolveDoubtsPage() {
 
     return <>
         <div className="container-fluid py-4 dashboard-content-container">
-            {/* Top breadcrumb/navigation area */}
+
             <div className="d-flex align-items-center mb-4">
-                <a href="/mainDashboard" className="back-link d-flex align-items-center text-decoration-none">
+                <a href="/" className="back-link d-flex align-items-center text-decoration-none">
                     <FaArrowLeft className="mr-2" /> Back to Home
                 </a>
                 <span className="text-muted mx-2">|</span>
@@ -59,18 +66,18 @@ function SolveDoubtsPage() {
                 <span className="text-muted ml-auto">StudyMate - Learning Management System</span>
             </div>
             <hr />
-            {/* Page Title and Description */}
+
             <h2 className="mb-2 page-title">Student Doubts</h2>
             <p className="text-muted mb-4 page-description">Help students with their questions and doubts</p>
 
-            {/* Student Doubts List */}
+
             <div className="row">
                 {state?.doubtList?.map((doubt, index) => (
                     <div className="col-12 mb-4" key={index}>
                         <div className="card doubt-item-card">
                             <div className="card-body d-flex">
                                 <div className="doubt-initials-avatar mr-3">
-                                
+
                                     <img
                                         src={BASE_URL + "/profile/" + doubt?.askedBy?.profile?.imageName}
                                         alt="Profile"
@@ -83,10 +90,10 @@ function SolveDoubtsPage() {
                                     <div className="d-flex justify-content-between align-items-start mb-2">
                                         <div>
                                             <h5 className="card-title-lg mb-0">{doubt?.question}</h5>
-                                            <p className="card-subtitle text-muted mb-0">
-                                                <span>{doubt?.askedBy?.name}</span>
+                                            <p className="card-subtitle text-muted mt-2">
+                                                <span><strong> {doubt?.askedBy?.name}</strong></span>
                                                 <span className="dot-separator"> • </span>
-                                                <span>{doubt?.createdAt}</span>
+                                                <span>{new Date(doubt?.createdAt).toLocaleDateString()}</span>
                                             </p>
                                         </div>
                                         <span className={`badge ${getStatusBadgeClass(doubt.status)}`}>
@@ -96,16 +103,19 @@ function SolveDoubtsPage() {
                                     <p className="card-text description-text mb-2">{doubt?.description}</p>
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div className="text-muted small">
-                                            <span>{doubt?.responses} responses</span>
-                                            <span className="badge subject-tag ml-3">{doubt?.subject}</span>
+                                            {/* <span>{doubt?.responses} responses</span> */}
+                                            <span className="badge bg-secondary p-1 subject-tag ">{doubt?.subject}</span>
                                         </div>
                                         <div>
-                                            <button className="btn btn-outline-info btn-sm mr-2">
+
+
+
+                                            <button className="btn btn-outline-info btn-sm mr-2" onClick={() => handleNavigate(doubt?._id)}>
                                                 <FaReply className="mr-1" /> Reply
                                             </button>
-                                            <button className="btn btn-info btn-sm">
-                                                <FaEye className="mr-1" /> View
-                                            </button>
+
+
+
                                         </div>
                                     </div>
                                 </div>

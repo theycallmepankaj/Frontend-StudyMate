@@ -7,6 +7,7 @@ import {
 import '../StudentDashboard/Dashboard.css'; 
 import { getCurrentUser } from '../../auth/Auth';
 import { BASE_URL } from '../../apis/Endpoint';
+import { Link, Outlet } from 'react-router-dom';
 
 function TeaDashboard() {
     const currentUser = getCurrentUser();
@@ -40,7 +41,7 @@ function TeaDashboard() {
             {/* Top breadcrumb/navigation area */}
             <div className="d-flex align-items-center mb-4">
                 {/* This link might go to a teacher's main dashboard or just back home */}
-                <a href="/mainDashboard" className="back-link d-flex align-items-center text-decoration-none">
+                <a href="/" className="back-link d-flex align-items-center text-decoration-none">
                     <FaArrowLeft className="mr-2" /> Back to Home
                 </a>
                 <span className="text-muted mx-2">|</span>
@@ -52,8 +53,8 @@ function TeaDashboard() {
             {/* Welcome Banner (Teacher specific) */}
             <div className="row mb-4">
                 <div className="col-12">
-                    <div className="card welcome-card p-5" style={{ gap: "2%" }}>
-                        <div className="d-flex align-items-center">
+                    <div className="card welcome-card p-5" >
+                        <div className="d-flex align-items-center" style={{ gap: "2%" }}>
                             <div>
                                 <img
                                     src={BASE_URL+"/profile/"+currentUser?.profile?.imageName}
@@ -77,28 +78,29 @@ function TeaDashboard() {
                 <div className="col-12">
                     <ul className="nav nav-pills nav-fill dashboard-nav-tabs">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">My Course</a>
+                            <Link to="/teacherDashboard/teaDashboard/getAnnouncement" className="nav-link">Announcement</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Assignment</a>
+                            <Link to="/teacherDashboard/teaDashboard/studentProfile" className="nav-link" >Profile</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a className="nav-link" href="#">Submission</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="#">Doubts</a> {/* Active tab */}
+                            <a className="nav-link active" href="#">Doubts</a> 
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Messages</a>
-                        </li>
+                        </li> */}
                     </ul>
+                     <Outlet /> 
                 </div>
             </div>
 
             {/* Student Doubts Section */}
-            <h3 className="mb-3 page-title">Student Doubts</h3>
+            {/* <h3 className="mb-3 page-title">Student Doubts</h3> */}
 
-            <div className="row">
+            {/* <div className="row">
                 {studentDoubts.map((doubt, index) => (
                     <div className="col-12 mb-4" key={index}>
                         <div className="card student-doubt-card">
@@ -125,7 +127,7 @@ function TeaDashboard() {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     </>
 };

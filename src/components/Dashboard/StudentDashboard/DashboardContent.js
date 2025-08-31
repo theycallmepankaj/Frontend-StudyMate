@@ -2,14 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 
 import {
-    FaBook,
-    FaTasks,
-    FaFolderOpen,
     FaComments,
     FaUser,
-    FaFilePdf,
-    FaVideo,
-    FaHeadphonesAlt,
     FaArrowLeft
 } from 'react-icons/fa';
 import { Link, Outlet } from 'react-router-dom';
@@ -21,7 +15,7 @@ import { getCurrentUser } from '../../auth/Auth';
 
 function DashboardContent() {
     const [user, setUser] = useState(null);
-    let currentUser = getCurrentUser();  // we call get user from auth file where sessionstorage data store in getCuurntuser
+    let currentUser = getCurrentUser();  
     console.log(currentUser)
     console.log("current user : ", currentUser.profile.imageName);
     useEffect(() => {
@@ -43,7 +37,7 @@ function DashboardContent() {
 
 
     return <>
-        <Outlet />
+        {/* <Outlet /> */}
         <div className="container-fluid dashboard-page-content py-4">
 
             <div className="d-flex align-items-center mb-4">
@@ -84,17 +78,18 @@ function DashboardContent() {
                     <ul className="nav nav-pills nav-fill dashboard-nav-tabs">
                         
                         <li className="nav-item">
-                            <a className="nav-link" href="#forum">
+                            <Link to="/mainDashboard/dashboard/getAnnouncementStu" className="nav-link " >
                                 <FaComments className="mr-2" /> Announcements
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/mainDashboard/studentProfile"} className="nav-link" >
+                            <Link to={"/mainDashboard/dashboard/studentProfile"} className="nav-link" >
                                 <FaUser className="mr-2" /> Profile
                             </Link>
                         </li>
                     </ul>
                 </div>
+                    <Outlet /> 
             </div>
 
         </div>

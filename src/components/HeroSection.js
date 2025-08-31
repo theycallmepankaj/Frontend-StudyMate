@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { isUserExist } from "./auth/Auth";
+import { getCurrentUser, isUserExist } from "./auth/Auth";
 
-function HeroSection(){
-    return <>
-  <section
+function HeroSection() {
+  const user = getCurrentUser();
+  return <>
+    <section
       className="py-5 text-center"
       style={{
         background: 'linear-gradient(to bottom right, #ADEED9, #FFEDF3)',
@@ -18,7 +19,7 @@ function HeroSection(){
         <p style={{ color: '#0ABAB5', fontWeight: 'bold' }}>⚡ The Future of Learning</p>
         <h1 className="display-4 fw-bold mb-3" style={{ color: '#0ABAB5' }}>
           Transform Your Learning <br />
-          Experience with <span style={{ color: '#3E3F5B' ,fontWeight: "bolder"}}>StudyMate</span>
+          Experience with <span style={{ color: '#3E3F5B', fontWeight: "bolder" }}>StudyMate</span>
         </h1>
 
         <p className="lead mb-5 mt-3" style={{ color: '#3E3F5B' }}>
@@ -27,52 +28,68 @@ function HeroSection(){
         </p>
 
         <div className="d-flex justify-content-center gap-3 mb-5 flex-wrap">
-           {
-              isUserExist() ? (
-                <Link
-                  to="/maindashboard/dashboard"
-                  className="btn btn-lg mr-3"
-                  style={{
-                    backgroundColor: '#0ABAB5',
-                    color: '#fff',
-                    padding: '12px 30px',
-                    borderRadius: '10px',
-                    border: 'none',
-                    boxShadow: '10px 10px 10px grey',
-                  }}
-                >
-                  Go to Dashboard
-                </Link>
-              ) : (
-                <Link
-                  to="/login"
-                  className="btn btn-lg mr-3"
-                  style={{
-                    backgroundColor: '#0ABAB5',
-                    color: '#fff',
-                    padding: '12px 30px',
-                    borderRadius: '10px',
-                    border: 'none',
-                    boxShadow: '10px 10px 10px grey',
-                  }}
-                >
-                  Start as Student
-                </Link>
-              )
-            }
+          {isUserExist() ? (
+            user.role === "student" ? (
+              <Link
+                to="/maindashboard/dashboard/getAnnouncementStu"
+                className="btn btn-lg mr-3"
+                style={{
+                  backgroundColor: '#0ABAB5',
+                  color: '#fff',
+                  padding: '12px 30px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  boxShadow: '10px 10px 10px grey',
+                }}
+              >
+                Go to Dashboard
+              </Link>
+            ) : user.role === "teacher" ? (
+              <Link
+                to="/teacherDashboard/teaDashboard/getAnnouncement"
+                className="btn btn-lg mr-3"
+                style={{
+                  backgroundColor: '#0ABAB5',
+                  color: '#fff',
+                  padding: '12px 30px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  boxShadow: '10px 10px 10px grey',
+                }}
+              >
+                Go to Dashboard
+              </Link>
+            ) : null
+          ) : (
+            <Link
+              to="/login"
+              className="btn btn-lg mr-3"
+              style={{
+                backgroundColor: '#0ABAB5',
+                color: '#fff',
+                padding: '12px 30px',
+                borderRadius: '10px',
+                border: 'none',
+                boxShadow: '10px 10px 10px grey',
+              }}
+            >
+              Start your Learning
+            </Link>
+          )}
 
-          <button
+
+          {/* <button
             className="btn btn-outline-dark btn-lg"
             style={{
               borderColor: '#0ABAB5',
               color: '#0ABAB5',
               padding: '12px 30px',
               borderRadius: '10px',
-              boxShadow:'10px 10px 10px grey'
+              boxShadow: '10px 10px 10px grey'
             }}
           >
             Join as Teacher
-          </button>
+          </button> */}
         </div>
 
         {/* Stats */}
@@ -96,7 +113,7 @@ function HeroSection(){
         </div>
       </div>
     </section>
-    </>
+  </>
 }
 
 export default HeroSection;

@@ -78,16 +78,16 @@ function AskQuestionPage(){
                                 <label htmlFor="subjectSelect" className="form-label">Subject</label>
                                 <select
                                     id="subjectSelect"
-                                    // className="form-control"
+                                    className="form-control p-2"
                                     value={state.subject}
                                     onChange={(e) => setState({...state,subject:e.target.value})}
                                     required
                                 >
                                     <option value="">Select subject</option>
-                                    <option value="Mathematics">Java</option>
-                                    <option value="Physics">JavaScript</option>
-                                    <option value="Chemistry">SoftSkill</option>
-                                    <option value="English">Aptitude</option>
+                                    <option value="Java">Java</option>
+                                    <option value="JavaScript">JavaScript</option>
+                                    <option value="SoftSkill">SoftSkill</option>
+                                    <option value="Aptitude">Aptitude</option>
                                     <option value="Computer Science">Computer Science</option>
                                 </select>
                             </div>
@@ -95,7 +95,7 @@ function AskQuestionPage(){
                                 <label htmlFor="prioritySelect" className="form-label">Priority</label>
                                 <select
                                     id="prioritySelect"
-                                    // className="form-control"
+                                    className="form-control  p-2"
                                     value={state.priority}
                                     onChange={(e) => setState({...state,priority:e.target.value})}
                                     required

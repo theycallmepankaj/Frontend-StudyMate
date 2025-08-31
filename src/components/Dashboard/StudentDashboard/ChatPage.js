@@ -1,120 +1,281 @@
-import React, { useState } from 'react';
-import {
-    FaArrowLeft, // Back to Home icon
-    FaPlus,      // Add chat icon
-    FaSearch,    // Search chat icon
-    FaPaperPlane, // Send message icon
-    FaFileAlt
-} from 'react-icons/fa';
-import './ChatPage.css'; // Assuming your general dashboard styles are here
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { io } from "socket.io-client";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { getCurrentUser } from "../../auth/Auth";
+import { FaCircle, FaUser } from "react-icons/fa";
+import "./ChatPage.css";
 
-const ChatPage = () => {
-    const [messages, setMessages] = useState([
-        { id: 1, sender: "Alice Johnson", text: "Hey everyone! Has anyone started the calculus assignment?", time: "10:30 AM", type: "received" },
-        { id: 2, sender: "Bob Smith", text: "I'm working on it now. Question 3 is quite challenging!", time: "10:32 AM", type: "received" },
-        { id: 3, sender: "You", text: "Hey everyone! Has anyone started the calculus assignment?", time: "10:35 AM", type: "sent" },
-        { id: 4, sender: "You", text: "calculus-solution.pdf", time: "10:36 AM", type: "sent-file" },
-        { id: 5, sender: "Charlie Davis", text: "Thanks! This is really helpful. The derivative approach makes much more sense now.", time: "10:40 AM", type: "received" },
-        { id: 6, sender: "Prof. Smith", text: "Great collaboration everyone! Remember, the assignment is due tomorrow.", time: "10:45 AM", type: "received" },
-    ]);
+const SOCKET_URL = "http://localhost:3000"; // backend socket url
+const API_URL = "http://localhost:3000";   // backend REST
 
-    const [chatList, setChatList] = useState([
-        { id: 1, title: "General Discussion", members: 45, lastMessage: "Hey everyone! Has anyone started the...", active: true },
-        { id: 2, title: "Math Study Group", members: 8, lastMessage: "Let's meet at 3 PM for the group stu", active: false },
-        { id: 3, title: "Prof. Smith", members: 1, lastMessage: "Your assignment submission looks gr", active: false },
-        { id: 4, title: "Alice Johnson", members: 1, lastMessage: "Can you help me with question 3?", active: false },
-        { id: 5, title: "Physics Lab - Section A", members: 25, lastMessage: "Lab report due tomorrow at 11:58 PM", active: false },
-    ]);
+const ChatPrivate = () => {
+  const [myId, setMyId] = useState("");
+  const [myName, setMyName] = useState("");
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [userList, setUserList] = useState([]);
 
-    const [currentMessage, setCurrentMessage] = useState("");
+  const socket = useMemo(
+    () =>
+      io(SOCKET_URL, {
+         transports: ["websocket", "polling"],
+        withCredentials: true,
+      }),
+    []
+  );
 
-    const handleSendMessage = () => {
-        if (currentMessage.trim() !== "") {
-            setMessages([...messages, { id: messages.length + 1, sender: "You", text: currentMessage, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), type: "sent" }]);
-            setCurrentMessage("");
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("✅ Connected to socket:", socket.id);
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("❌ Connection error:", err.message);
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("connect_error");
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      setMyId(user._id);
+      setMyName(user.name);
+      socket.emit("register", user._id);
+    }
+  }, [socket]);
+
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () =>
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+
+  // get all users
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/user`)
+      .then((res) => {
+        const users = res.data.findUser || res.data;
+        setUserList(users);
+      })
+      .catch((err) => console.warn("Could not fetch users:", err.message));
+  }, []);
+
+  // socket listeners
+  useEffect(() => {
+    function onPrivateMessage(payload) {
+      const msg = payload.message;
+      const mapped = {
+        id: msg._id,
+        senderId: msg.sender._id,
+        senderName: msg.sender.name,
+        receiverId: msg.receiver._id,
+        receiverName: msg.receiver.name,
+        text: msg.message,
+        time: new Date(msg.createdAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        type: msg.sender._id === myId ? "sent" : "received",
+      };
+
+      setMessages((prev) =>
+        prev.some((m) => m.id === mapped.id) ? prev : [...prev, mapped]
+      );
+    }
+
+    function onPrivateMessageSent(payload) {
+      const { tempId, message } = payload;
+      const mapped = {
+        id: message._id,
+        senderId: message.sender._id,
+        senderName: message.sender.name,
+        receiverId: message.receiver._id,
+        receiverName: message.receiver.name,
+        text: message.message,
+        time: new Date(message.createdAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        type: message.sender._id === myId ? "sent" : "received",
+      };
+
+      setMessages((prev) => {
+        const idx = prev.findIndex((m) => m.id === tempId);
+        if (idx !== -1) {
+          const copy = [...prev];
+          copy[idx] = mapped;
+          return copy;
         }
+        return prev.some((m) => m.id === mapped.id) ? prev : [...prev, mapped];
+      });
+    }
+
+    socket.on("private_message", onPrivateMessage);
+    socket.on("private_message_sent", onPrivateMessageSent);
+    socket.on("online_users", setOnlineUsers);
+
+    return () => {
+      socket.off("private_message", onPrivateMessage);
+      socket.off("private_message_sent", onPrivateMessageSent);
+      socket.off("online_users", setOnlineUsers);
+      // socket.disconnect();
+    };
+  }, [socket, myId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // load conversation when selectedUser changes
+  useEffect(() => {
+    if (!myId || !selectedUser) return;
+    const otherId = selectedUser._id;
+    axios
+      .get(`${API_URL}/chat/conversation/${myId}/${otherId}`)
+      .then((res) => {
+        const msgs = res.data.messages || [];
+        const mapped = msgs.map((msg) => ({
+          id: msg._id,
+          senderId: msg.sender._id,
+          senderName: msg.sender.name,
+          receiverId: msg.receiver._id,
+          receiverName: msg.receiver.name,
+          text: msg.message,
+          time: new Date(msg.createdAt).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          type: msg.sender._id === myId ? "sent" : "received",
+        }));
+        setMessages(mapped);
+      })
+      .catch(() => setMessages([]));
+  }, [myId, selectedUser]);
+
+  const sendMessage = () => {
+    if (!currentMessage.trim() || !selectedUser) return;
+    const tempId = uuidv4();
+    const tempMessage = {
+      id: tempId,
+      senderId: myId,
+      senderName: myName || "You",
+      receiverId: selectedUser._id,
+      receiverName: selectedUser.name,
+      text: currentMessage,
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      type: "sent",
+      pending: true,
     };
 
-    return (
-        <div className="container-fluid py-4 dashboard-content-container chat-page">
-            {/* Top breadcrumb/navigation area */}
-            <div className="d-flex align-items-center mb-4">
-                <a href="/" className="back-link d-flex align-items-center text-decoration-none">
-                    <FaArrowLeft className="mr-2" /> Back to Home
-                </a>
-                <span className="text-muted mx-2">|</span>
-                <span className="font-weight-bold" style={{color:"#0ABAB5",fontSize:"30px"}}>Chat</span>
-                <span className="text-muted ml-auto">StudyMate - Learning Management System</span>
-            </div>
-            <hr />
+    setMessages((prev) => [...prev, tempMessage]);
 
-            {/* Chat Layout */}
-            <div className="chat-container">
-                {/* Left Column: Chat List */}
-                <div className="chat-list-column">
-                    <div className="chat-list-header d-flex justify-content-between align-items-center mb-3">
-                        <h5 className="mb-0">Messages</h5>
-                        <button className="btn btn-sm btn-outline-info rounded-circle">
-                            <FaPlus />
-                        </button>
-                    </div>
-                    <div className="chat-search-bar mb-3">
-                        <div className="input-group">
-                            <input type="text" className="form-control" placeholder="Search chats..." />
-                            <div className="input-group-append">
-                                <span className="input-group-text"><FaSearch /></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="chat-list-items">
-                        {chatList.map(chat => (
-                            <div key={chat.id} className={`chat-list-item d-flex flex-column p-3 mb-2 ${chat.active ? 'active' : ''}`}>
-                                <h6 className="mb-1">{chat.title}</h6>
-                                <small className="text-muted mb-1"># {chat.members} members</small>
-                                <small className="last-message-text">{chat.lastMessage}</small>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+    socket.emit("private_message", {
+      tempId,
+      senderId: myId,
+      receiverId: selectedUser._id,
+      text: currentMessage,
+    });
 
-                {/* Right Column: Chat Messages */}
-                <div className="chat-messages-column">
-                    <div className="chat-messages-header d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <h5 className="mb-0">General Discussion</h5>
-                        <span className="text-muted"># 45 members</span>
-                    </div>
-                    <div className="chat-messages-body">
-                        {messages.map(msg => (
-                            <div key={msg.id} className={`chat-message-bubble ${msg.type}`}>
-                                {msg.type === "received" && <span className="sender-name">{msg.sender}</span>}
-                                {msg.type === "sent-file" ? (
-                                    <div className="file-message">
-                                        <FaFileAlt className="mr-2" /> {msg.text}
-                                    </div>
-                                ) : (
-                                    <p>{msg.text}</p>
-                                )}
-                                <span className="message-time">{msg.time}</span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="chat-input-area d-flex align-items-center mt-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Type a message..."
-                            value={currentMessage}
-                            onChange={(e) => setCurrentMessage(e.target.value)}
-                            onKeyPress={(e) => { if (e.key === 'Enter') handleSendMessage(); }}
-                        />
-                        <button className="btn btn-info ml-2" onClick={handleSendMessage}>
-                            <FaPaperPlane />
-                        </button>
-                    </div>
-                </div>
+    setCurrentMessage("");
+  };
+
+  
+
+  return (
+    <div className="chat-container">
+      {/* Sidebar */}
+      <div className="chat-sidebar">
+        <h3>Chats</h3>
+        <div className="user-list">
+          {userList?.map((u) => (
+            <div
+              key={u._id}
+              className={`user-item ${selectedUser?._id === u._id ? "active" : ""
+                }`}
+              onClick={() => setSelectedUser(u)}
+            >
+              <img
+                src={
+                  u?.profile?.imageName
+                    ? `${API_URL}/profile/${u?.profile?.imageName}`
+                    : "/default-avatar.png"
+                }
+                alt={u?.name}
+                className="user-avatar"
+              />
+              <div className="user-info">
+                <span>{u?.name}</span>
+                {onlineUsers.find((ou) => ou.id === u._id) && (
+                  <FaCircle className="online-dot" />
+                )}
+              </div>
             </div>
+          ))}
         </div>
-    );
+      </div>
+
+      {/* Chat window */}
+      <div className="chat-window">
+        {selectedUser ? (
+          <>
+            <div className="chat-header">
+              <img
+                src={
+                  selectedUser?.profile?.imageName
+                    ? `${API_URL}/profile/${selectedUser?.profile?.imageName}`
+                    : "/default-avatar.png"
+                }
+                alt={selectedUser?.name}
+                className="header-avatar"
+              />
+              <h4>{selectedUser?.name}</h4>
+            </div>
+
+            <div className="chat-messages">
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`message ${m.type === "sent" ? "sent" : "received"}`}
+                >
+                  <p>{m.text}</p>
+                  <span className="time">
+                    {m.time}
+                    {m.pending ? " • sending..." : ""}
+                  </span>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <div className="chat-input">
+              <input
+                type="text"
+                placeholder={`Message ${selectedUser?.name}`}
+                value={currentMessage}
+                onChange={(e) => setCurrentMessage(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              />
+              <button onClick={sendMessage}>Send</button>
+            </div>
+          </>
+        ) : (
+          <div className="chat-placeholder">
+            <h3>Select a user to start chatting</h3>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
-export default ChatPage;
+export default ChatPrivate;

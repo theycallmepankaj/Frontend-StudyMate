@@ -20,7 +20,7 @@ import Endpoint from '../../apis/Endpoint';
 // import { isUserExist } from '../../auth/Auth';
 
 function MainDashboardLayout() {
-     const navigate = useNavigate();
+    const navigate = useNavigate();
     const toggleSidebar = () => {
         const wrapper = document.getElementById('wrapper');
         if (wrapper) {
@@ -56,8 +56,7 @@ function MainDashboardLayout() {
                             "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
                     } to="/MainDashboard/dashboard"><FaThLarge className="mr-2" /> Dashboard</Link> */}
                     
-                    <NavLink to="/MainDashboard/dashboard"  className={({ isActive }) => "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
-                    }
+                    <NavLink to="/MainDashboard/dashboard/getAnnouncementStu"  className={({ isActive }) => "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")}
                     >
                         <FaQuestionCircle className="mr-2" /> Dashboard
                     </NavLink>
@@ -93,24 +92,24 @@ function MainDashboardLayout() {
                     </NavLink>
 
                   
-                    <NavLink
+                    {/* <NavLink
                         to="/MainDashboard/filesPage"
                         className={({ isActive }) =>
                             "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
                     }
                     >
                         <FaFileAlt className="mr-2" /> Files
-                    </NavLink>
+                    </NavLink> */}
 
                     
-                    {/* <NavLink
+                    <NavLink
                         to="/MainDashboard/chatPage"
                         className={({ isActive }) =>
                             "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
                     }
                     >
                         <FaComments className="mr-2" /> Chat
-                    </NavLink> */}
+                    </NavLink>
                 </div>
             </div>
            
