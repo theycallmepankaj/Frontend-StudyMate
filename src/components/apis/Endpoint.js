@@ -1,4 +1,4 @@
-export const  BASE_URL = "http://localhost:3000"
+export const  BASE_URL = "https://backend-studymate-1.onrender.com"
 export default {
     SIGN_UP: BASE_URL+"/user",
     SIGN_IN: BASE_URL+"/user/authenticate",
