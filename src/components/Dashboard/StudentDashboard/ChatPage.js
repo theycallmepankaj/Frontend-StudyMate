@@ -6,8 +6,8 @@ import { getCurrentUser } from "../../auth/Auth";
 import { FaCircle, FaUser } from "react-icons/fa";
 import "./ChatPage.css";
 
-const SOCKET_URL = "http://localhost:3000"; // backend socket url
-const API_URL = "http://localhost:3000";   // backend REST
+const SOCKET_URL = "https://backend-studymate-1.onrender.com"; // backend socket url
+const API_URL = "https://backend-studymate-1.onrender.com";   // backend REST
 
 const ChatPrivate = () => {
   const [myId, setMyId] = useState("");
