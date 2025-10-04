@@ -3,11 +3,11 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { getCurrentUser } from "../../auth/Auth";
-import { FaCircle, FaUser } from "react-icons/fa";
+import { FaCircle } from "react-icons/fa";
 import "./ChatPage.css";
 
-const SOCKET_URL = "https://backend-studymate-1.onrender.com"; // backend socket url
-const API_URL = "https://backend-studymate-1.onrender.com";   // backend REST
+const SOCKET_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 const ChatPrivate = () => {
   const [myId, setMyId] = useState("");
@@ -17,17 +17,22 @@ const ChatPrivate = () => {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const [userList, setUserList] = useState([]);
+  const [unreadCounts, setUnreadCounts] = useState({}); // 🔥 track unread messages
 
   const socket = useMemo(
     () =>
       io(SOCKET_URL, {
-         transports: ["websocket", "polling"],
+        transports: ["websocket", "polling"],
         withCredentials: true,
       }),
     []
   );
 
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () =>
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 
+  // Connect socket
   useEffect(() => {
     socket.on("connect", () => {
       console.log("✅ Connected to socket:", socket.id);
@@ -43,6 +48,7 @@ const ChatPrivate = () => {
     };
   }, [socket]);
 
+  // Register user on socket
   useEffect(() => {
     const user = getCurrentUser();
     if (user) {
@@ -52,11 +58,7 @@ const ChatPrivate = () => {
     }
   }, [socket]);
 
-  const messagesEndRef = useRef(null);
-  const scrollToBottom = () =>
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-
-  // get all users
+  // Fetch all users
   useEffect(() => {
     axios
       .get(`${API_URL}/user`)
@@ -67,7 +69,7 @@ const ChatPrivate = () => {
       .catch((err) => console.warn("Could not fetch users:", err.message));
   }, []);
 
-  // socket listeners
+  // Socket message handling
   useEffect(() => {
     function onPrivateMessage(payload) {
       const msg = payload.message;
@@ -78,64 +80,52 @@ const ChatPrivate = () => {
         receiverId: msg.receiver._id,
         receiverName: msg.receiver.name,
         text: msg.message,
-        time: new Date(msg.createdAt).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
+        time: new Date(msg.createdAt).getTime(),
         type: msg.sender._id === myId ? "sent" : "received",
       };
 
       setMessages((prev) =>
         prev.some((m) => m.id === mapped.id) ? prev : [...prev, mapped]
       );
-    }
 
-    function onPrivateMessageSent(payload) {
-      const { tempId, message } = payload;
-      const mapped = {
-        id: message._id,
-        senderId: message.sender._id,
-        senderName: message.sender.name,
-        receiverId: message.receiver._id,
-        receiverName: message.receiver.name,
-        text: message.message,
-        time: new Date(message.createdAt).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-        type: message.sender._id === myId ? "sent" : "received",
-      };
+      // 🔥 If message is received & not the currently selected chat, increment unread
+      if (msg.receiver._id === myId && selectedUser?._id !== msg.sender._id) {
+        setUnreadCounts((prev) => ({
+          ...prev,
+          [msg.sender._id]: (prev[msg.sender._id] || 0) + 1,
+        }));
+      }
 
-      setMessages((prev) => {
-        const idx = prev.findIndex((m) => m.id === tempId);
-        if (idx !== -1) {
-          const copy = [...prev];
-          copy[idx] = mapped;
-          return copy;
+      // 🔥 Move sender to top in chat list
+      setUserList((prev) => {
+        const reordered = [...prev];
+        const senderIndex = reordered.findIndex((u) => u._id === msg.sender._id);
+        if (senderIndex > -1) {
+          const [senderUser] = reordered.splice(senderIndex, 1);
+          reordered.unshift(senderUser);
         }
-        return prev.some((m) => m.id === mapped.id) ? prev : [...prev, mapped];
+        return reordered;
       });
     }
 
     socket.on("private_message", onPrivateMessage);
-    socket.on("private_message_sent", onPrivateMessageSent);
     socket.on("online_users", setOnlineUsers);
 
     return () => {
       socket.off("private_message", onPrivateMessage);
-      socket.off("private_message_sent", onPrivateMessageSent);
       socket.off("online_users", setOnlineUsers);
-      // socket.disconnect();
     };
-  }, [socket, myId]);
+  }, [socket, myId, selectedUser]);
 
+  // Scroll bottom when messages update
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  // load conversation when selectedUser changes
+  // Load conversation when selectedUser changes
   useEffect(() => {
     if (!myId || !selectedUser) return;
+
     const otherId = selectedUser._id;
     axios
       .get(`${API_URL}/chat/conversation/${myId}/${otherId}`)
@@ -148,17 +138,18 @@ const ChatPrivate = () => {
           receiverId: msg.receiver._id,
           receiverName: msg.receiver.name,
           text: msg.message,
-          time: new Date(msg.createdAt).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
+          time: new Date(msg.createdAt).getTime(),
           type: msg.sender._id === myId ? "sent" : "received",
         }));
         setMessages(mapped);
+
+        // 🔥 reset unread count
+        setUnreadCounts((prev) => ({ ...prev, [selectedUser._id]: 0 }));
       })
       .catch(() => setMessages([]));
   }, [myId, selectedUser]);
 
+  // Send message
   const sendMessage = () => {
     if (!currentMessage.trim() || !selectedUser) return;
     const tempId = uuidv4();
@@ -169,12 +160,8 @@ const ChatPrivate = () => {
       receiverId: selectedUser._id,
       receiverName: selectedUser.name,
       text: currentMessage,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
+      time: new Date().getTime(),
       type: "sent",
-      pending: true,
     };
 
     setMessages((prev) => [...prev, tempMessage]);
@@ -187,9 +174,18 @@ const ChatPrivate = () => {
     });
 
     setCurrentMessage("");
-  };
 
-  
+    // 🔥 Move this user to top
+    setUserList((prev) => {
+      const reordered = [...prev];
+      const index = reordered.findIndex((u) => u._id === selectedUser._id);
+      if (index > -1) {
+        const [sel] = reordered.splice(index, 1);
+        reordered.unshift(sel);
+      }
+      return reordered;
+    });
+  };
 
   return (
     <div className="chat-container">
@@ -200,8 +196,9 @@ const ChatPrivate = () => {
           {userList?.map((u) => (
             <div
               key={u._id}
-              className={`user-item ${selectedUser?._id === u._id ? "active" : ""
-                }`}
+              className={`user-item ${
+                selectedUser?._id === u._id ? "active" : ""
+              }`}
               onClick={() => setSelectedUser(u)}
             >
               <img
@@ -219,12 +216,16 @@ const ChatPrivate = () => {
                   <FaCircle className="online-dot" />
                 )}
               </div>
+              {/* 🔥 Unread badge */}
+              {unreadCounts[u._id] > 0 && (
+                <span className="unread-badge">{unreadCounts[u._id]}</span>
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Chat window */}
+      {/* Chat Window */}
       <div className="chat-window">
         {selectedUser ? (
           <>
@@ -245,12 +246,16 @@ const ChatPrivate = () => {
               {messages.map((m) => (
                 <div
                   key={m.id}
-                  className={`message ${m.type === "sent" ? "sent" : "received"}`}
+                  className={`message ${
+                    m.type === "sent" ? "sent" : "received"
+                  }`}
                 >
                   <p>{m.text}</p>
                   <span className="time">
-                    {m.time}
-                    {m.pending ? " • sending..." : ""}
+                    {new Date(m.time).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </span>
                 </div>
               ))}

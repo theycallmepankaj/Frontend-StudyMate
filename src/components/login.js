@@ -24,13 +24,13 @@ const LogIn = () => {
       const loggedInUser = response.data.user;
       console.log("Login Success:", loggedInUser);
 
-      // Role mismatch check
+   
       if (state.role !== loggedInUser.role) {
         toast.warning(`You are a ${loggedInUser.role}. Please select the correct role.`);
         return;
       }
 
-      // Save user & navigate
+      
       sessionStorage.setItem("current-user", JSON.stringify(loggedInUser));
       toast.success(response.data.message || "Login successful");
 
@@ -54,55 +54,54 @@ const LogIn = () => {
     <ToastContainer />
     <div className="signin-page d-flex justify-content-center" style={{ gap: "3%", minHeight: '100vh', background: 'linear-gradient(to right, #E0F7F4, #F9F9F9)' }}>
       {/* Left Content */}
-      {/* <div className="left-pane p-5 bg-white shadow-sm"
-        style={{ flex: 1, maxWidth: "600px", borderRadius: "15px" }}>
-        <div className="d-flex align-items-center mb-4">
-          <div className="logo bg-info rounded-circle p-2 me-2">
-            <FaUserGraduate color="white" size={24} />
-          </div>
-          <div>
-            <h4 className="m-0"><strong>Study</strong><span className="text-info">Mate</span></h4>
-            <small className="text-muted">Learning Management System</small>
-          </div>
-        </div>
-
-        <h2 className="fw-bold mb-3">Transform Your Learning Journey</h2>
-        <p className="text-muted mb-5">Join thousands of students and educators in the future of collaborative learning</p>
-
-        <div className="feature-box p-3 d-flex mb-3 bg-light shadow-sm" style={{ borderRadius: "15px" }}>
-          <div className="icon me-3 text-info"><FaUserGraduate size={20} /></div>
-          <div>
-            <h6 className="mb-1 fw-bold">Interactive Learning</h6>
-            <small className="text-muted">Engage with multimedia content and real-time feedback</small>
-          </div>
-        </div>
-
-        <div className="feature-box p-3 d-flex mb-3 bg-light shadow-sm" style={{ borderRadius: "15px" }}>
-          <div className="icon me-3 text-info"><FaChalkboardTeacher size={20} /></div>
-          <div>
-            <h6 className="mb-1 fw-bold">Collaborative Platform</h6>
-            <small className="text-muted">Connect with peers and instructors seamlessly</small>
-          </div>
-        </div>
-
-        <div className="feature-box p-3 d-flex bg-light shadow-sm" style={{ borderRadius: "15px" }}>
-          <div className="icon me-3 text-info"><FaLock size={20} /></div>
-          <div>
-            <h6 className="mb-1 fw-bold">Smart Analytics</h6>
-            <small className="text-muted">Track progress with intelligent insights and recommendations</small>
-          </div>
-        </div>
-      </div> */}
+      {/* <div className="left-pane p-5 " style={{ flex: 1 ,marginTop:"7%"}}>
+              <div className="d-flex align-items-center mb-4">
+                <div className="logo bg-info rounded-circle p-2 me-2 mr-2">
+                  <FaUserGraduate color="white" size={24} />
+                </div>
+                <div>
+                  <h4 className="m-0"><strong>Study</strong><span className="text-info">Mate</span></h4>
+                  <small className="text-muted">Learning Management System</small>
+                </div>
+              </div>
+      
+              <h2 className="fw-bold mb-3">Transform Your Learning Journey</h2>
+              <p className="text-muted mb-5">Join thousands of students and educators in the future of collaborative learning</p>
+      
+              <div className="feature-box p-3 d-flex mb-3 bg-white shadow-sm" style={{borderRadius:"15px"}}>
+                <div className="icon me-3 text-info mr-3"><FaUserGraduate size={20} /></div>
+                <div>
+                  <h6 className="mb-1 fw-bold">Interactive Learning</h6>
+                  <small className="text-muted">Engage with multimedia content and real-time feedback</small>
+                </div>
+              </div>
+      
+              <div className="feature-box p-3 d-flex mb-3 bg-white shadow-sm" style={{borderRadius:"15px"}}>
+                <div className="icon me-3 text-info mr-3"><FaChalkboardTeacher size={20} /></div>
+                <div>
+                  <h6 className="mb-1 fw-bold">Collaborative Platform</h6>
+                  <small className="text-muted">Connect with peers and instructors seamlessly</small>
+                </div>
+              </div>
+      
+              <div className="feature-box p-3 d-flex bg-white shadow-sm" style={{borderRadius:"15px"}} >
+                <div className="icon me-3 text-info mr-3"><FaLock size={20} /></div>
+                <div>
+                  <h6 className="mb-1 fw-bold">Smart Analytics</h6>
+                  <small className="text-muted">Track progress with intelligent insights and recommendations</small>
+                </div>
+              </div>
+            </div> */}
 
       {/* Right Login Card */}
       <form onSubmit={handleSubmit}
         className="right-pane d-flex align-items-center justify-content-center"
-        style={{ flex: 1, maxWidth: "450px" }}>
+        style={{ flex: 1, maxWidth: "400px" }}>
         <div className="card p-4 shadow-lg w-100" style={{ borderRadius: '15px' }}>
           <h4 className="text-center fw-bold mb-1">Welcome Back!</h4>
           <p className="text-center text-muted mb-4">Sign in to continue your learning journey</p>
 
-          <div className="mb-3 d-flex justify-content-between">
+          <div className="mb-3 d-flex justify-content-between " style={{gap:"15px"}}>
             <button
               type='button'
               className={`btn flex-fill me-2 ${state.role === 'student' ? 'btn-info text-white' : 'btn-outline-secondary'}`}

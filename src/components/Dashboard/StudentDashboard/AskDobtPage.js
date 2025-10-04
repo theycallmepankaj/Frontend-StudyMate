@@ -91,7 +91,7 @@ function AskQuestionPage(){
                                     <option value="Computer Science">Computer Science</option>
                                 </select>
                             </div>
-                            <div className="col-md-6">
+                            {/* <div className="col-md-6">
                                 <label htmlFor="prioritySelect" className="form-label">Priority</label>
                                 <select
                                     id="prioritySelect"
@@ -105,7 +105,7 @@ function AskQuestionPage(){
                                     <option value="Medium">Medium</option>
                                     <option value="High">High</option>
                                 </select>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="mb-3">

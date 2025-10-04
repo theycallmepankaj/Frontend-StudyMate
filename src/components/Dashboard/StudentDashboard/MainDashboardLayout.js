@@ -110,7 +110,17 @@ function MainDashboardLayout() {
                     >
                         <FaComments className="mr-2" /> Chat
                     </NavLink>
+                    {/* <NavLink
+                        to="/MainDashboard/chatPage"
+                        className={({ isActive }) =>
+                            "list-group-item list-group-item-action bg-light" + (isActive ? " active" : "")
+                    }
+                    >
+                       
+                 
+                    </NavLink> */}
                 </div>
+                 {/* <label onClick={handleLogout} className="nav-link text-info" style={{marginBottom:"none"}}><FaSignOutAlt className="mr-1" /> Logout</label> */}
             </div>
            
 

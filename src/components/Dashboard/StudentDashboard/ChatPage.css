@@ -162,3 +162,13 @@
   align-items: center;
   color: #888;
 }
+
+.unread-badge {
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: auto;
+}

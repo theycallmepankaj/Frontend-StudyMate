@@ -1,82 +1,91 @@
-/* --- Doubt Response Page Styles --- */
-.doubt-details-card {
-    background-color: #f1f5f9;
-    /* Light grey background for the original question */
-    border-radius: 1rem;
-    border: 1px solid #e2e8f0;
+:root {
+  --primary-color: #0ABAB5; /* A nice blue */
+  --secondary-color: #0ABAB5; /* A nice green */
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --border-radius: 12px;
+}
+
+body {
+  background-color: var(--light-gray);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-content-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.card {
+  box-shadow: var(--shadow);
+  border: none;
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-body h4 {
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.card-body h4.text-success {
+  color: var(--secondary-color) !important;
+}
+
+.card-body h4 .mr-2 {
+  margin-right: 10px;
 }
 
 .doubt-details-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #334155;
+  font-weight: bold;
+  color: var(--dark-gray);
 }
 
-.doubt-details-meta {
-    font-size: 0.9rem;
-    color: #64748b;
-}
-
-.doubt-details-question {
-    font-size: 1rem;
-    color: #475569;
-    white-space: pre-wrap;
-}
-
-.response-form-card {
-    background-color: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.response-form-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #343a40;
-}
-
-.response-form-subtitle {
-    font-size: 1rem;
-    color: #6c757d;
-}
-
-.form-label {
-    font-weight: 600;
-    color: #495057;
-    margin-bottom: 0.5rem;
+.badge {
+  font-size: 0.9em;
+  padding: 8px 12px;
+  border-radius: 50px;
 }
 
 .form-control {
-    border-radius: 0.5rem;
-    border: 1px solid #ced4da;
-    padding: 0.75rem 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: var(--border-radius);
+  border: 1px solid #ced4da;
+  padding: 15px;
+  transition: border-color 0.3s ease;
 }
 
 .form-control:focus {
-    border-color: #0ABAB5;
-    box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.25);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
 }
 
-.response-submit-btn {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: #0ABAB5;
-    border-color: #0ABAB5;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.response-submit-btn:hover {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-/* Common utility for separators if not already defined */
-.dot-separator {
-    margin: 0 0.5rem;
-    color: #adb5bd;
+.back-link {
+  color: var(--dark-gray);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
 }

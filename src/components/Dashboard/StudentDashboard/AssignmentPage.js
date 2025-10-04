@@ -31,6 +31,7 @@ const AssignmentsPage = () => {
         try {
             let response = await axios.get(Endpoint.GET_ASSIGNMENT,{withCredentials:true});
             dispatch({ type: "set-assignment", payload: response.data });
+            console.log("response Data here : ",response.data);
         }
         catch (err) {
             console.log(err);
@@ -57,7 +58,7 @@ const AssignmentsPage = () => {
 
     return (
         <div className="container-fluid py-4 dashboard-content-container">
-            {/* Top breadcrumb/navigation area */}
+           
             <div className="d-flex align-items-center mb-4">
                 <a href="/" className="back-link d-flex align-items-center text-decoration-none">
                     <FaArrowLeft className="mr-2" /> Back to Home
@@ -68,7 +69,7 @@ const AssignmentsPage = () => {
             </div>
             <hr />
 
-            {/* Page Title and Description */}
+            
             <h2 className="mb-2 page-title">My Assignment</h2>
             <p className="text-muted mb-4 page-description">Track and submit your assignments</p>
 
@@ -92,7 +93,9 @@ const AssignmentsPage = () => {
                                     <p className="card-subtitle text-muted mb-2">
                                         <span className="subject-text">{assignment?.subject}</span>
                                         <span className="dot-separator"> • </span>
-                                        <span>Due {new Date(assignment?.dueDate).toLocaleDateString()}</span>
+                                        <span className='subject-text ml-2'>Date : {new Date(assignment.createdAt).toLocaleDateString()}</span>
+                                        <span className="dot-separator"> • </span>
+                                        <span className='subject-text ml-2'>Due Date : {new Date(assignment?.dueDate).toLocaleDateString()}</span>
                                     </p>
                                     <p className="card-text description-text">{assignment?.description}</p>
                                     <div className="d-flex justify-content-start mt-3">

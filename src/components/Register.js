@@ -43,7 +43,7 @@ const handleSubmit = async (event)=>{
          <ToastContainer/>
       <div className="signin-page d-flex" style={{ minHeight: '100vh', background: 'linear-gradient(to right, #E0F7F4, #F9F9F9)' }}>
       {/* Left Content */}
-      <div className="left-pane p-5 " style={{ flex: 1 ,marginTop:"7%"}}>
+      {/* <div className="left-pane p-5 " style={{ flex: 1 ,marginTop:"7%"}}>
         <div className="d-flex align-items-center mb-4">
           <div className="logo bg-info rounded-circle p-2 me-2 mr-2">
             <FaUserGraduate color="white" size={24} />
@@ -80,7 +80,7 @@ const handleSubmit = async (event)=>{
             <small className="text-muted">Track progress with intelligent insights and recommendations</small>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Right Login Card */}
       

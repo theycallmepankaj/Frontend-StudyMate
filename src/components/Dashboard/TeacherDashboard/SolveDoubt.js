@@ -1,30 +1,30 @@
 import React, { useEffect, useReducer } from 'react';
 import {
     FaArrowLeft,
-    FaReply,
-    FaEye
+    FaReply
 } from 'react-icons/fa';
 import './SolveDoubt.css';
 import axios from 'axios';
 import Endpoint, { BASE_URL } from '../../apis/Endpoint';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SolveDoubtsPage() {
-    // Data for the student doubts cards
     const navigate = useNavigate();
 
-    const handleNavigate = (id) => {
-        navigate(`/teacherDashboard/doubtResponse/${id}`)
-    }
+    // Navigation function doubtId + title ke sath
+    const handleNavigate = (id, title, askedBy, subject) => {
+        navigate(`/teacherDashboard/doubtResponse/${id}`, { state: { title, askedBy, subject } });
+    };
 
     const [state, dispatch] = useReducer((state, action) => {
-        if (action.type == "set-doubts") {
-            state.doubtList = action.payload;
+        if (action.type === "set-doubts") {
+            return { ...state, doubtList: action.payload };
         }
-        return { ...state };
+        return state;
     }, {
         doubtList: []
-    })
+    });
+
     useEffect(() => {
         loadDoubts();
     }, []);
@@ -39,7 +39,7 @@ function SolveDoubtsPage() {
         catch (err) {
             console.log(err);
         }
-    }
+    };
 
     const getStatusBadgeClass = (status) => {
         switch (status) {
@@ -70,14 +70,12 @@ function SolveDoubtsPage() {
             <h2 className="mb-2 page-title">Student Doubts</h2>
             <p className="text-muted mb-4 page-description">Help students with their questions and doubts</p>
 
-
             <div className="row">
                 {state?.doubtList?.map((doubt, index) => (
                     <div className="col-12 mb-4" key={index}>
                         <div className="card doubt-item-card">
                             <div className="card-body d-flex">
                                 <div className="doubt-initials-avatar mr-3">
-
                                     <img
                                         src={BASE_URL + "/profile/" + doubt?.askedBy?.profile?.imageName}
                                         alt="Profile"
@@ -87,35 +85,56 @@ function SolveDoubtsPage() {
                                     />
                                 </div>
                                 <div className="flex-grow-1">
-                                    <div className="d-flex justify-content-between align-items-start mb-2">
-                                        <div>
-                                            <h5 className="card-title-lg mb-0">{doubt?.question}</h5>
-                                            <p className="card-subtitle text-muted mt-2">
-                                                <span><strong> {doubt?.askedBy?.name}</strong></span>
-                                                <span className="dot-separator"> • </span>
-                                                <span>{new Date(doubt?.createdAt).toLocaleDateString()}</span>
-                                            </p>
-                                        </div>
-                                        <span className={`badge ${getStatusBadgeClass(doubt.status)}`}>
-                                            {doubt?.status}
+                                    {/* Question + Status in one row */}
+                                    <div className="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 className="card-title-lg mb-0">{doubt?.question}</h5>
+                                        <span className={`badge ${getStatusBadgeClass(doubt?.answers?.length > 0 ? "Resolved" : "Pending")}`}>
+                                            {doubt?.answers?.length > 0 ? "Resolved" : "Pending"}
                                         </span>
                                     </div>
+                                    <p className="card-subtitle text-muted mt-1">
+                                        <span><strong>{doubt?.askedBy?.name}</strong></span>
+                                        <span className="dot-separator"> • </span>
+                                        <span>{new Date(doubt?.createdAt).toLocaleDateString()}</span>
+                                    </p>
+
                                     <p className="card-text description-text mb-2">{doubt?.description}</p>
+
+                                    {/* Subject + Buttons */}
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div className="text-muted small">
-                                            {/* <span>{doubt?.responses} responses</span> */}
-                                            <span className="badge bg-secondary p-1 subject-tag ">{doubt?.subject}</span>
+                                            <span className="material-card-subject mr-2">{doubt?.subject}</span>
                                         </div>
                                         <div>
-
-
-
-                                            <button className="btn btn-outline-info btn-sm mr-2" onClick={() => handleNavigate(doubt?._id)}>
-                                                <FaReply className="mr-1" /> Reply
-                                            </button>
-
-
-
+                                            {doubt?.answers?.length > 0 ? (
+                                                <button
+                                                    className="btn btn-outline-secondary btn-sm"
+                                                    onClick={() =>
+                                                        handleNavigate(
+                                                            doubt?._id,
+                                                            doubt?.question,
+                                                            doubt?.askedBy?.name,
+                                                            doubt?.subject
+                                                        )
+                                                    }
+                                                >
+                                                    <FaReply className="mr-1" /> Add More
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    className="btn btn-outline-info btn-sm"
+                                                    onClick={() =>
+                                                        handleNavigate(
+                                                            doubt?._id,
+                                                            doubt?.question,
+                                                            doubt?.askedBy?.name,
+                                                            doubt?.subject
+                                                        )
+                                                    }
+                                                >
+                                                    <FaReply className="mr-1" /> Reply
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

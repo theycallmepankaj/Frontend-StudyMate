@@ -1,4 +1,4 @@
-export const  BASE_URL = "https://backend-studymate-1.onrender.com"
+export const  BASE_URL = "http://localhost:3000"
 export default {
     SIGN_UP: BASE_URL+"/user",
     SIGN_IN: BASE_URL+"/user/authenticate",
@@ -20,5 +20,7 @@ export default {
     GET_ANNOUNCEMENT:BASE_URL+"/student/announcements",
     DOUBT_RESPONSE:BASE_URL+"/teacher/doubtResponse",
     DELETE_DOUBT:BASE_URL+"/student",
-    DELETE_ANNOUNCEMENT:BASE_URL+"/teacher"
+    DELETE_ANNOUNCEMENT:BASE_URL+"/teacher",
+    TEACHER_ASSIGNMENT_STATS: "http://localhost:3000/teacher/submissions-stats",
+    DELETE_ASSIGNMENT: "http://localhost:3000/teacher/assigment"
 }
